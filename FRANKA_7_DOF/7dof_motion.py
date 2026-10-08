@@ -8,7 +8,7 @@ import time
 # LOAD MODEL
 # ============================================================
 
-MODEL_PATH = "7DOF_HEAL_Manipulator.xml"
+MODEL_PATH = "7DOF_FRANKA_Manipulator.xml"
 
 model = mujoco.MjModel.from_xml_path(MODEL_PATH)
 data = mujoco.MjData(model)

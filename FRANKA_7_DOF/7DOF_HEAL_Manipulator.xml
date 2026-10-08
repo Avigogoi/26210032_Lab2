@@ -1,0 +1,371 @@
+<mujoco model="7DOF_HEAL_Manipulator">
+
+    <compiler angle="radian" autolimits="true"/>
+
+    <option timestep="0.002"
+            gravity="0 0 -9.81"/>
+
+    <visual>
+        <global offwidth="1280"
+                offheight="720"/>
+        <quality shadowsize="2048"/>
+        <headlight diffuse="0.8 0.8 0.8"
+                    ambient="0.3 0.3 0.3"/>
+    </visual>
+
+    <!-- ================================================= -->
+    <!-- MATERIALS                                         -->
+    <!-- ================================================= -->
+
+    <asset>
+
+        <material name="robot_material"
+                  rgba="0.2 0.4 0.8 1"/>
+
+        <material name="joint_material"
+                  rgba="0.15 0.15 0.15 1"/>
+
+        <material name="tool_material"
+                  rgba="0.8 0.3 0.1 1"/>
+
+        <material name="ground_material"
+                  rgba="0.6 0.6 0.6 1"/>
+
+    </asset>
+
+
+    <!-- ================================================= -->
+    <!-- WORLD                                              -->
+    <!-- ================================================= -->
+
+    <worldbody>
+
+        <geom name="ground"
+              type="plane"
+              size="3 3 0.1"
+              material="ground_material"/>
+
+
+        <!-- ================================================= -->
+        <!-- BASE                                               -->
+        <!-- ================================================= -->
+
+        <body name="base"
+              pos="0 0 0.05">
+
+            <geom name="base_geom"
+                  type="cylinder"
+                  size="0.25 0.05"
+                  material="joint_material"/>
+
+            <inertial pos="0 0 0"
+                      mass="5"
+                      diaginertia="0.05 0.05 0.05"/>
+
+
+            <!-- ================================================= -->
+            <!-- JOINT 1 - BASE YAW                                -->
+            <!-- ================================================= -->
+
+            <body name="link1"
+                  pos="0 0 0.10">
+
+                <joint name="joint1"
+                       type="hinge"
+                       axis="0 0 1"
+                       range="-3.1416 3.1416"/>
+
+                <geom name="link1_geom"
+                      type="capsule"
+                      fromto="0 0 0 0 0 0.30"
+                      size="0.08"
+                      material="robot_material"/>
+
+                <inertial pos="0 0 0.15"
+                          mass="1.5"
+                          diaginertia="0.02 0.02 0.01"/>
+
+
+                <!-- ================================================= -->
+                <!-- JOINT 2 - SHOULDER                                -->
+                <!-- ================================================= -->
+
+                <body name="link2"
+                      pos="0 0 0.30">
+
+                    <joint name="joint2"
+                           type="hinge"
+                           axis="0 1 0"
+                           range="-2.5 2.5"/>
+
+                    <geom name="joint2_visual"
+                          type="sphere"
+                          size="0.10"
+                          material="joint_material"/>
+
+                    <geom name="link2_geom"
+                          type="capsule"
+                          fromto="0 0 0 0.40 0 0"
+                          size="0.07"
+                          material="robot_material"/>
+
+                    <inertial pos="0.20 0 0"
+                              mass="1.2"
+                              diaginertia="0.02 0.02 0.01"/>
+
+
+                    <!-- ================================================= -->
+                    <!-- JOINT 3 - ELBOW                                  -->
+                    <!-- ================================================= -->
+
+                    <body name="link3"
+                          pos="0.40 0 0">
+
+                        <joint name="joint3"
+                               type="hinge"
+                               axis="0 1 0"
+                               range="-2.5 2.5"/>
+
+                        <geom name="joint3_visual"
+                              type="sphere"
+                              size="0.09"
+                              material="joint_material"/>
+
+                        <geom name="link3_geom"
+                              type="capsule"
+                              fromto="0 0 0 0.30 0 0"
+                              size="0.065"
+                              material="robot_material"/>
+
+                        <inertial pos="0.15 0 0"
+                                  mass="0.9"
+                                  diaginertia="0.015 0.015 0.008"/>
+
+
+                        <!-- ================================================= -->
+                        <!-- JOINT 4 - WRIST YAW                              -->
+                        <!-- ================================================= -->
+
+                        <body name="link4"
+                              pos="0.30 0 0">
+
+                            <joint name="joint4"
+                                   type="hinge"
+                                   axis="1 0 0"
+                                   range="-3.1416 3.1416"/>
+
+                            <geom name="joint4_visual"
+                                  type="sphere"
+                                  size="0.08"
+                                  material="joint_material"/>
+
+                            <geom name="link4_geom"
+                                  type="capsule"
+                                  fromto="0 0 0 0 0 0.20"
+                                  size="0.055"
+                                  material="robot_material"/>
+
+                            <inertial pos="0 0 0.10"
+                                      mass="0.6"
+                                      diaginertia="0.01 0.01 0.008"/>
+
+
+                            <!-- ================================================= -->
+                            <!-- JOINT 5 - WRIST PITCH                            -->
+                            <!-- ================================================= -->
+
+                            <body name="link5"
+                                  pos="0 0 0.20">
+
+                                <joint name="joint5"
+                                       type="hinge"
+                                       axis="0 1 0"
+                                       range="-2.5 2.5"/>
+
+                                <geom name="joint5_visual"
+                                      type="sphere"
+                                      size="0.075"
+                                      material="joint_material"/>
+
+                                <geom name="link5_geom"
+                                      type="capsule"
+                                      fromto="0 0 0 0 0 0.15"
+                                      size="0.05"
+                                      material="robot_material"/>
+
+                                <inertial pos="0 0 0.075"
+                                          mass="0.4"
+                                          diaginertia="0.006 0.006 0.004"/>
+
+
+                                <!-- ================================================= -->
+                                <!-- JOINT 6 - WRIST ROLL                            -->
+                                <!-- ================================================= -->
+
+                                <body name="link6"
+                                      pos="0 0 0.15">
+
+                                    <joint name="joint6"
+                                           type="hinge"
+                                           axis="1 0 0"
+                                           range="-3.1416 3.1416"/>
+
+                                    <geom name="joint6_visual"
+                                          type="sphere"
+                                          size="0.07"
+                                          material="joint_material"/>
+
+                                    <geom name="link6_geom"
+                                          type="capsule"
+                                          fromto="0 0 0 0 0 0.12"
+                                          size="0.045"
+                                          material="robot_material"/>
+
+                                    <inertial pos="0 0 0.06"
+                                              mass="0.3"
+                                              diaginertia="0.004 0.004 0.003"/>
+
+
+                                    <!-- ================================================= -->
+                                    <!-- JOINT 7 - TOOL ROTATION                       -->
+                                    <!-- ================================================= -->
+
+                                    <body name="link7"
+                                          pos="0 0 0.12">
+
+                                        <joint name="joint7"
+                                               type="hinge"
+                                               axis="0 0 1"
+                                               range="-3.1416 3.1416"/>
+
+                                        <geom name="joint7_visual"
+                                              type="sphere"
+                                              size="0.065"
+                                              material="joint_material"/>
+
+                                        <geom name="link7_geom"
+                                              type="capsule"
+                                              fromto="0 0 0 0 0 0.10"
+                                              size="0.04"
+                                              material="robot_material"/>
+
+                                        <inertial pos="0 0 0.05"
+                                                  mass="0.25"
+                                                  diaginertia="0.003 0.003 0.002"/>
+
+
+                                        <!-- ========================================= -->
+                                        <!-- END EFFECTOR                              -->
+                                        <!-- ========================================= -->
+
+                                        <body name="end_effector"
+                                              pos="0 0 0.10">
+
+                                            <geom name="tool"
+                                                  type="cylinder"
+                                                  size="0.045 0.10"
+                                                  material="tool_material"
+                                                  euler="0 1.5708 0"/>
+
+                                            <inertial pos="0 0 0"
+                                                      mass="0.2"
+                                                      diaginertia="0.002 0.002 0.002"/>
+
+                                            <site name="tool_site"
+                                                  pos="0 0 0"
+                                                  size="0.025"
+                                                  rgba="1 0 0 1"/>
+
+                                        </body>
+
+                                    </body>
+
+                                </body>
+
+                            </body>
+
+                        </body>
+
+                    </body>
+
+                </body>
+
+            </body>
+
+        </body>
+
+    </worldbody>
+
+
+    <!-- ================================================= -->
+    <!-- POSITION ACTUATORS                                -->
+    <!-- ================================================= -->
+
+    <actuator>
+
+        <position name="motor1"
+                  joint="joint1"
+                  kp="30"
+                  kv="5"
+                  ctrlrange="-3.1416 3.1416"/>
+
+        <position name="motor2"
+                  joint="joint2"
+                  kp="30"
+                  kv="6"
+                  ctrlrange="-2.5 2.5"/>
+
+        <position name="motor3"
+                  joint="joint3"
+                  kp="30"
+                  kv="6"
+                  ctrlrange="-2.5 2.5"/>
+
+        <position name="motor4"
+                  joint="joint4"
+                  kp="20"
+                  kv="4"
+                  ctrlrange="-3.1416 3.1416"/>
+
+        <position name="motor5"
+                  joint="joint5"
+                  kp="20"
+                  kv="4"
+                  ctrlrange="-2.5 2.5"/>
+
+        <position name="motor6"
+                  joint="joint6"
+                  kp="15"
+                  kv="3"
+                  ctrlrange="-3.1416 3.1416"/>
+
+        <position name="motor7"
+                  joint="joint7"
+                  kp="15"
+                  kv="3"
+                  ctrlrange="-3.1416 3.1416"/>
+
+    </actuator>
+
+
+    <!-- ================================================= -->
+    <!-- SENSORS                                            -->
+    <!-- ================================================= -->
+
+    <sensor>
+
+        <jointpos name="q1" joint="joint1"/>
+        <jointpos name="q2" joint="joint2"/>
+        <jointpos name="q3" joint="joint3"/>
+        <jointpos name="q4" joint="joint4"/>
+        <jointpos name="q5" joint="joint5"/>
+        <jointpos name="q6" joint="joint6"/>
+        <jointpos name="q7" joint="joint7"/>
+
+        <framepos name="end_effector_position"
+                  objtype="site"
+                  objname="tool_site"/>
+
+    </sensor>
+
+</mujoco>

@@ -1,4 +1,4 @@
-<mujoco model="7DOF_HEAL_Manipulator">
+<mujoco model="7DOF_FRANKA_Manipulator">
 
     <compiler angle="radian" autolimits="true"/>
 
